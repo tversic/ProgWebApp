@@ -1,14 +1,13 @@
 package hr.tvz.versic.hardwareapp.controller;
 
+import hr.tvz.versic.hardwareapp.command.HardwareCommand;
 import hr.tvz.versic.hardwareapp.model.DTO.HardwareDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import hr.tvz.versic.hardwareapp.service.interfaces.HardwareService;
-
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
+
 
 
 @RestController
@@ -25,9 +24,20 @@ public class HardwareController {
     {
         return hardwareService.findAll();
     }
-    @GetMapping(params = "code")
-    public Optional<HardwareDTO> returnByCode(@RequestParam final String code)
+
+    @GetMapping("/{code}")
+    public ResponseEntity<HardwareDTO> returnByCode(@PathVariable final String code)
     {
         return hardwareService.findByCode(code);
+    }
+
+    @PostMapping
+    public ResponseEntity<HardwareDTO> save(@Valid @RequestBody final HardwareCommand command){
+        return hardwareService.save(command);
+    }
+
+    @DeleteMapping("/{code}")
+    public ResponseEntity<HardwareDTO> delete(@Valid @PathVariable String code){
+        return hardwareService.delete(code);
     }
 }

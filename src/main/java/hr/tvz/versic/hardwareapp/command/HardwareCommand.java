@@ -1,28 +1,31 @@
-package hr.tvz.versic.hardwareapp.model.POJO;
+package hr.tvz.versic.hardwareapp.command;
 
 import hr.tvz.versic.hardwareapp.enums.HardwareType;
-import hr.tvz.versic.hardwareapp.model.DTO.HardwareDTO;
-import org.springframework.http.ResponseEntity;
 
-import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
-public class Hardware implements Serializable {
+public class HardwareCommand {
+
+    @NotEmpty(message = "name can't be left empty")
     private String name;
+
+    @NotEmpty(message = "code can't be left empty")
     private String code;
+
+    @NotNull(message = "price can't be left empty")
+    @PositiveOrZero(message = "price cant be negative")
     private Double price;
+
+    @NotNull
     private HardwareType hardwareType;
+
+    @NotNull(message = "stock can't be left empty")
+    @PositiveOrZero(message = "stock cant be negative")
     private Integer stock;
 
-    public Hardware() {
-    }
-
-    public Hardware(String name, String code, Double price, HardwareType hardwareType, Integer stock) {
-        this.name = name;
-        this.code = code;
-        this.price = price;
-        this.hardwareType = hardwareType;
-        this.stock = stock;
-    }
     public String getName() {
         return name;
     }
@@ -55,12 +58,11 @@ public class Hardware implements Serializable {
         this.hardwareType = hardwareType;
     }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
     public Integer getStock() {
         return stock;
     }
 
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
 }
