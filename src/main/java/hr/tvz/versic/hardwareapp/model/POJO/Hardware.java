@@ -9,15 +9,17 @@ public class Hardware implements Serializable {
     private String code;
     private Double price;
     private HardwareType hardwareType;
+    private Integer stock;
 
     public Hardware() {
     }
 
-    public Hardware(String name, String code, Double price, HardwareType hardwareType) {
+    public Hardware(String name, String code, Double price, HardwareType hardwareType, Integer stock) {
         this.name = name;
         this.code = code;
         this.price = price;
         this.hardwareType = hardwareType;
+        this.stock = stock;
     }
     public String getName() {
         return name;
@@ -49,6 +51,14 @@ public class Hardware implements Serializable {
 
     public void setHardwareType(HardwareType hardwareType) {
         this.hardwareType = hardwareType;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Integer getStock() {
+        return stock;
     }
 
 }

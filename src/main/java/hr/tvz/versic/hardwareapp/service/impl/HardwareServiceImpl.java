@@ -1,5 +1,6 @@
 package hr.tvz.versic.hardwareapp.service.impl;
 
+import hr.tvz.versic.hardwareapp.enums.HardwareType;
 import hr.tvz.versic.hardwareapp.model.DTO.HardwareDTO;
 import hr.tvz.versic.hardwareapp.model.POJO.Hardware;
 import hr.tvz.versic.hardwareapp.repository.interfaces.HardwareRepository;
