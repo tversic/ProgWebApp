@@ -15,8 +15,6 @@ public class HardwareRepoImpl implements HardwareRepository {
             new Hardware("MX432DDR4", "0001", 80.00, HardwareType.RAM, 4),
             new Hardware("MX432DfasR4", "0002", 80.00, HardwareType.CPU, 4),
             new Hardware("MX432DfasR4", "0003", 80.00, HardwareType.GPU, 2  )
-
-
     );
 
     @Override
