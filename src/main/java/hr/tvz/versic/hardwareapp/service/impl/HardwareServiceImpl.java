@@ -27,8 +27,7 @@ public class HardwareServiceImpl implements HardwareService {
 
     @Override
     public ResponseEntity<HardwareDTO> findByCode(String code) {
-        if(hardwareRepo.findByCode(code).isPresent())
-        {
+        if(hardwareRepo.findByCode(code).isPresent()) {
             HardwareDTO hardwareDTO = hardwareToHardwareDTO(hardwareRepo.findByCode(code).get());
             return ResponseEntity.status(HttpStatus.FOUND).body(hardwareDTO);
         }else{
@@ -52,8 +51,7 @@ public class HardwareServiceImpl implements HardwareService {
 
     @Override
     public ResponseEntity<HardwareDTO> delete (String code){
-        if(hardwareRepo.delete(code))
-        {
+        if(hardwareRepo.delete(code)) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         else {
@@ -61,13 +59,23 @@ public class HardwareServiceImpl implements HardwareService {
         }
     }
 
-    private HardwareDTO hardwareToHardwareDTO(Hardware hardware)
-    {
+    @Override
+    public ResponseEntity<HardwareDTO> update(HardwareCommand hardwareCommand) {
+        Hardware hardware = hardwareCommandToHardware(hardwareCommand);
+        HardwareDTO hardwareDTO = hardwareToHardwareDTO(hardware);
+        if(hardwareRepo.update(hardware).isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(hardwareDTO);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    private HardwareDTO hardwareToHardwareDTO(Hardware hardware) {
         return new HardwareDTO(hardware.getName(), hardware.getPrice());
     }
 
-    private Hardware hardwareCommandToHardware(HardwareCommand hardware)
-    {
+    private Hardware hardwareCommandToHardware(HardwareCommand hardware) {
         return new Hardware(hardware.getName(), hardware.getCode(),
                 hardware.getPrice(), hardware.getHardwareType(), hardware.getStock());
     }

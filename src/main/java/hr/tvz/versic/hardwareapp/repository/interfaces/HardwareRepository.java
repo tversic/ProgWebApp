@@ -11,5 +11,6 @@ public interface HardwareRepository {
     List<Hardware> findAll();
     Optional<Hardware> findByCode(String code);
     Optional<Hardware> save(Hardware hardware);
+    Optional<Hardware> update(Hardware hardware);
     boolean delete(String code);
 }

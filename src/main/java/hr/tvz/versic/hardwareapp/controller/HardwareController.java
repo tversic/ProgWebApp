@@ -40,4 +40,10 @@ public class HardwareController {
     public ResponseEntity<HardwareDTO> delete(@Valid @PathVariable String code){
         return hardwareService.delete(code);
     }
+
+    @PutMapping("/{code}")
+    public ResponseEntity<HardwareDTO> update(@Valid @RequestBody HardwareCommand hardwareCommand){
+        return hardwareService.update(hardwareCommand);
+    }
+
 }

@@ -46,6 +46,26 @@ public class HardwareRepoImpl implements HardwareRepository {
     }
 
     @Override
+    public Optional<Hardware> update(Hardware hardware) {
+        Optional<Hardware> returnHardware = hardwares
+                .stream()
+                .filter(hardware1 -> hardware1
+                        .getCode()
+                        .equals(hardware.getCode()))
+                        .findAny();
+        if(returnHardware.isPresent()){
+            hardwares.stream().map(hardware1 -> {
+                if(hardware1.getCode().equals(hardware.getCode())){
+                    return hardware1;
+                }else{
+                    return hardware;
+                }
+            }).collect(Collectors.toList());
+        }
+        return returnHardware;
+    }
+
+    @Override
     public boolean delete(String code){
         List<Hardware> hardwareOptional = hardwares.stream()
                 .filter(f -> f.getCode().equals(code))

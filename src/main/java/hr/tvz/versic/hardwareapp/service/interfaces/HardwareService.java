@@ -19,4 +19,6 @@ public interface HardwareService {
     ResponseEntity<HardwareDTO> save (HardwareCommand command);
 
     ResponseEntity<HardwareDTO> delete (String code);
+
+    ResponseEntity<HardwareDTO> update (HardwareCommand hardwareCommand);
 }
