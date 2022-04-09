@@ -1,11 +1,8 @@
 package hr.tvz.versic.hardwareapp.repository.impl;
 
 import hr.tvz.versic.hardwareapp.enums.HardwareType;
-import hr.tvz.versic.hardwareapp.model.DTO.HardwareDTO;
 import hr.tvz.versic.hardwareapp.model.POJO.Hardware;
 import hr.tvz.versic.hardwareapp.repository.interfaces.HardwareRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -46,7 +43,7 @@ public class HardwareRepoImpl implements HardwareRepository {
     }
 
     @Override
-    public Optional<Hardware> update(Hardware hardware) {
+    public Optional<Hardware> put(Hardware hardware) {
         Optional<Hardware> returnHardware = hardwares
                 .stream()
                 .filter(hardware1 -> hardware1
@@ -77,4 +74,5 @@ public class HardwareRepoImpl implements HardwareRepository {
             return false;
         }
     }
+
 }

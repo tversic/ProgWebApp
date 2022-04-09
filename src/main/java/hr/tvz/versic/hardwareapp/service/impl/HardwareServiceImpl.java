@@ -1,13 +1,10 @@
 package hr.tvz.versic.hardwareapp.service.impl;
 
 import hr.tvz.versic.hardwareapp.command.HardwareCommand;
-import hr.tvz.versic.hardwareapp.enums.HardwareType;
 import hr.tvz.versic.hardwareapp.model.DTO.HardwareDTO;
 import hr.tvz.versic.hardwareapp.model.POJO.Hardware;
 import hr.tvz.versic.hardwareapp.repository.interfaces.HardwareRepository;
 import hr.tvz.versic.hardwareapp.service.interfaces.HardwareService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -26,48 +23,48 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public ResponseEntity<HardwareDTO> findByCode(String code) {
+    public HardwareDTO findByCode(String code) {
         if(hardwareRepo.findByCode(code).isPresent()) {
             HardwareDTO hardwareDTO = hardwareToHardwareDTO(hardwareRepo.findByCode(code).get());
-            return ResponseEntity.status(HttpStatus.FOUND).body(hardwareDTO);
+            return hardwareDTO;
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return null;
         }
     }
 
     @Override
-    public ResponseEntity<HardwareDTO> save(HardwareCommand command){
+    public HardwareDTO save(HardwareCommand command){
 
         Optional<Hardware> hardwareOptional = hardwareRepo.save(hardwareCommandToHardware(command));
         if(hardwareOptional.isPresent()) {
             Hardware hardware = hardwareOptional.get();
             HardwareDTO hardwareDto =  hardwareToHardwareDTO(hardware);
-            return ResponseEntity.status(HttpStatus.CREATED).body(hardwareDto);
+            return hardwareDto;
         }
         else{
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return null;
         }
     }
 
     @Override
-    public ResponseEntity<HardwareDTO> delete (String code){
+    public boolean delete (String code){
         if(hardwareRepo.delete(code)) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            return true;
         }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return false;
         }
     }
 
     @Override
-    public ResponseEntity<HardwareDTO> update(HardwareCommand hardwareCommand) {
+    public HardwareDTO put(HardwareCommand hardwareCommand) {
         Hardware hardware = hardwareCommandToHardware(hardwareCommand);
         HardwareDTO hardwareDTO = hardwareToHardwareDTO(hardware);
-        if(hardwareRepo.update(hardware).isPresent()) {
-            return ResponseEntity.status(HttpStatus.OK).body(hardwareDTO);
+        if(hardwareRepo.put(hardware).isPresent()) {
+            return hardwareDTO;
         }
         else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return null;
         }
     }
 
