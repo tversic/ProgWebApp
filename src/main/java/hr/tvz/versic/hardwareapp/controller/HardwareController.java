@@ -1,6 +1,7 @@
 package hr.tvz.versic.hardwareapp.controller;
 
 import hr.tvz.versic.hardwareapp.command.HardwareCommand;
+import hr.tvz.versic.hardwareapp.enums.HardwareType;
 import hr.tvz.versic.hardwareapp.model.DTO.HardwareDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("hardware")
+@CrossOrigin(origins = "http://localhost:4200")
 public class HardwareController {
 
     private static HardwareService hardwareService;
@@ -24,6 +26,11 @@ public class HardwareController {
     public List<HardwareDTO> getAllHardwares()
     {
         return hardwareService.findAll();
+    }
+
+    @GetMapping("/type")
+    public Enum<HardwareType>[] HardwareType (){
+        return HardwareType.values();
     }
 
     @GetMapping("/{code}")
