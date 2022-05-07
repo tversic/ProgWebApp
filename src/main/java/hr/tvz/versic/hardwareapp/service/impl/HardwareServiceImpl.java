@@ -18,6 +18,12 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
+    public HardwareDTO findByValue(String code){
+        Hardware hardware = hardwareRepo.findStringByValue(code).get();
+        return hardwareToHardwareDTO(hardware);
+    }
+
+    @Override
     public List<HardwareDTO> findAll() {
         return hardwareRepo.findAll().stream().map(this::hardwareToHardwareDTO).collect(Collectors.toList());
     }
@@ -74,6 +80,6 @@ public class HardwareServiceImpl implements HardwareService {
 
     private Hardware hardwareCommandToHardware(HardwareCommand hardware) {
         return new Hardware(hardware.getName(), hardware.getCode(),
-                hardware.getPrice(), hardware.getHardwareType(), hardware.getStock());
+                hardware.getPrice(), hardware.getHardwareType().toString(), hardware.getStock());
     }
 }

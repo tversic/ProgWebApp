@@ -16,4 +16,6 @@ public interface HardwareService {
     boolean delete (String code);
 
     HardwareDTO put (HardwareCommand hardwareCommand);
+
+    HardwareDTO findByValue(String code);
 }

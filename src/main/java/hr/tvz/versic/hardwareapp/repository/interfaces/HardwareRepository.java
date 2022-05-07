@@ -10,5 +10,6 @@ public interface HardwareRepository {
     Optional<Hardware> findByCode(String code);
     Optional<Hardware> save(Hardware hardware);
     Optional<Hardware> put(Hardware hardware);
+    Optional<Hardware> findStringByValue(String value);
     boolean delete(String code);
 }

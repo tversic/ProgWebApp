@@ -9,13 +9,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
-public class HardwareRepoImpl implements HardwareRepository {
+public class HardwareRepoMock implements HardwareRepository {
 
     private List<Hardware> hardwares = new ArrayList<>(Arrays.asList(
-            new Hardware("LenovoHDD", "0000", 300.00, HardwareType.STORAGE, 5),
-            new Hardware("MX432DDR4", "0001", 80.00, HardwareType.RAM, 4),
-            new Hardware("MX432DfasR4", "0002", 90.00, HardwareType.CPU, 4),
-            new Hardware("MX432DfasR4", "0003", 100.00, HardwareType.GPU, 2  )
+            new Hardware(Long.parseLong("1"), "LenovoHDD", "0000", 300.00, "STORAGE", 5),
+            new Hardware(Long.parseLong("2"), "MX432DDR4", "0001", 80.00, "RAM", 4),
+            new Hardware(Long.parseLong("3"), "MX432DfasR4", "0002", 90.00, "CPU", 4),
+            new Hardware(Long.parseLong("4"), "MX432Dfds4", "0003", 100.00, "GPU", 2  )
     ));
 
     @Override
@@ -60,6 +60,11 @@ public class HardwareRepoImpl implements HardwareRepository {
             }).collect(Collectors.toList());
         }
         return returnHardware;
+    }
+
+    @Override
+    public Optional<Hardware> findStringByValue(String value) {
+        return Optional.empty();
     }
 
     @Override

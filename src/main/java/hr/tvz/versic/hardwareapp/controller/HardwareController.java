@@ -28,6 +28,16 @@ public class HardwareController {
         return hardwareService.findAll();
     }
 
+    @GetMapping("/value/{value}")
+    public ResponseEntity<HardwareDTO> returnByValue(@PathVariable final String value){
+        HardwareDTO hardwareDTO = hardwareService.findByValue(value);
+        if(hardwareDTO != null){
+            return ResponseEntity.status(HttpStatus.OK).body(hardwareDTO);
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hardwareDTO);
+        }
+    }
+
     @GetMapping("/type")
     public Enum<HardwareType>[] HardwareType (){
         return HardwareType.values();
