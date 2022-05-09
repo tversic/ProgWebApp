@@ -49,7 +49,7 @@ public class HardwareJdbcRepo implements HardwareRepository {
     @Override
     public List<Hardware> findAll() {
         List<Hardware> hardwares = List.copyOf(jdbcTemplate.query(SELECT_ALL, this::mapRowToHardware));
-        System.out.println(hardwares.get(0).getReview().get(0).getName());
+       // System.out.println(hardwares.get(0).getReview().get(0).getName());
         return List.copyOf(jdbcTemplate.query(SELECT_ALL, this::mapRowToHardware));
     }
 
@@ -98,12 +98,9 @@ public class HardwareJdbcRepo implements HardwareRepository {
                 rs.getDouble("price"),
                 rs.getString("type"),
                 rs.getInt("stock")
-
         );
-
-        Review review = reviewJpaRepository.findById(rs.getLong("id"));
-
-        h1.setReview(Collections.singletonList(reviewJpaRepository.findById(rs.getLong("id"))));
+       // List<Review> review = reviewJpaRepository.findByHardwareId(h1.getId());
+        //h1.setReview(reviewJpaRepository.findByHardwareId(h1.getId()));
         return h1;
     }
 }

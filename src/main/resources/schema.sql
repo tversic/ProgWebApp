@@ -1,5 +1,5 @@
 create table hardware(
-     id long auto_increment(3) not null primary key ,
+     id long auto_increment(3) not null primary key,
      name varchar(100),
      code varchar(100) not null,
      price double not null,

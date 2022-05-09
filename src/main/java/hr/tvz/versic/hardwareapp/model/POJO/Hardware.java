@@ -30,7 +30,9 @@ public class Hardware implements Serializable {
     @Column(name = "stock")
     private Integer stock;
 
-    @OneToMany(mappedBy = "hardware", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "hardware",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
     private List<Review> review;
 
     private HardwareType hardwareType;

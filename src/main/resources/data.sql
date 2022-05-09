@@ -4,4 +4,5 @@ insert into hardware(id, name, code, price, type, stock) values
 
 insert into review( name, tekst, ocjena, id_hardware) values
                   ('review1', 'txt1', 'ONESTAR', 1),
-                  ('review2', 'txt2', 'TWOSTAR', 2);
+                  ('review2', 'txt2', 'TWOSTAR', 1),
+                  ('review3', 'txt3', 'THREESTAR', 2);
