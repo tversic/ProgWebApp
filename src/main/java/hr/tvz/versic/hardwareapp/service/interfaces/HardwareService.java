@@ -4,12 +4,13 @@ import hr.tvz.versic.hardwareapp.command.HardwareCommand;
 import hr.tvz.versic.hardwareapp.model.DTO.HardwareDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HardwareService {
 
     List<HardwareDTO> findAll();
 
-    HardwareDTO findByCode(String code);
+    Optional<HardwareDTO> findByCode(String code);
 
     HardwareDTO save (HardwareCommand command);
 

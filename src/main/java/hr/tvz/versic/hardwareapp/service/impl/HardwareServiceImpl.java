@@ -29,12 +29,12 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public HardwareDTO findByCode(String code) {
+    public Optional<HardwareDTO> findByCode(String code) {
         if(hardwareRepo.findByCode(code).isPresent()) {
             HardwareDTO hardwareDTO = hardwareToHardwareDTO(hardwareRepo.findByCode(code).get());
-            return hardwareDTO;
+            return Optional.of(hardwareDTO);
         }else{
-            return null;
+            return Optional.empty();
         }
     }
 

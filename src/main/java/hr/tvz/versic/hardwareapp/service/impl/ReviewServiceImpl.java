@@ -1,11 +1,13 @@
 package hr.tvz.versic.hardwareapp.service.impl;
 
+import hr.tvz.versic.hardwareapp.model.DTO.ReviewDTO;
 import hr.tvz.versic.hardwareapp.model.POJO.Review;
 import hr.tvz.versic.hardwareapp.repository.interfaces.ReviewJpaRepository;
 import hr.tvz.versic.hardwareapp.service.interfaces.ReviewService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -16,12 +18,20 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> getAll() {
-        return reviewJpaRepository.findAll();
+    public List<ReviewDTO> getAll() {
+        return reviewJpaRepository.findAll().stream()
+                .map(this::mapReviewToReviewDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Review> getAllByHardwareId(Long id) {
-        return reviewJpaRepository.findByHardwareId(id);
+    public List<ReviewDTO> getAllByHardwareCode(String code) {
+        return reviewJpaRepository.findByHardwareCode(code).stream()
+                .map(this::mapReviewToReviewDTO)
+                .collect(Collectors.toList());
+    }
+
+    private ReviewDTO mapReviewToReviewDTO(Review review){
+        return new ReviewDTO(review.getName(), review.getTekst(), review.getOcjena());
     }
 }

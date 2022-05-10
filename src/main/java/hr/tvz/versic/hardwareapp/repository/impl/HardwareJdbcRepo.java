@@ -7,6 +7,7 @@ import hr.tvz.versic.hardwareapp.model.POJO.Review;
 import hr.tvz.versic.hardwareapp.repository.interfaces.HardwareRepository;
 import hr.tvz.versic.hardwareapp.repository.interfaces.ReviewJpaRepository;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -55,7 +56,11 @@ public class HardwareJdbcRepo implements HardwareRepository {
 
     @Override
     public Optional<Hardware> findByCode(String code) {
-        return Optional.ofNullable(jdbcTemplate.queryForObject(SELECT_ALL + " where code = ?", this::mapRowToHardware, code));
+        try{
+            return Optional.ofNullable(jdbcTemplate.queryForObject(SELECT_ALL + " where code = ?", this::mapRowToHardware, code));
+        } catch (EmptyResultDataAccessException e){
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -91,16 +96,16 @@ public class HardwareJdbcRepo implements HardwareRepository {
 
 
     private Hardware mapRowToHardware(ResultSet rs, int rowNum) throws SQLException{
-        Hardware h1 =  new Hardware(
-                rs.getLong("id"),
-                rs.getString("name"),
-                rs.getString("code"),
-                rs.getDouble("price"),
-                rs.getString("type"),
-                rs.getInt("stock")
-        );
-       // List<Review> review = reviewJpaRepository.findByHardwareId(h1.getId());
-        //h1.setReview(reviewJpaRepository.findByHardwareId(h1.getId()));
-        return h1;
+            Hardware h1 =  new Hardware(
+                    rs.getLong("id"),
+                    rs.getString("name"),
+                    rs.getString("code"),
+                    rs.getDouble("price"),
+                    rs.getString("type"),
+                    rs.getInt("stock")
+            );
+            List<Review> review = reviewJpaRepository.findByHardwareCode(h1.getCode());
+            h1.setReview(reviewJpaRepository.findByHardwareCode(h1.getCode()));
+            return h1;
     }
 }

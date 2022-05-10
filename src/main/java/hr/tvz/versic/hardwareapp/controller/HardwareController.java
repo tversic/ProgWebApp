@@ -3,7 +3,7 @@ package hr.tvz.versic.hardwareapp.controller;
 import hr.tvz.versic.hardwareapp.command.HardwareCommand;
 import hr.tvz.versic.hardwareapp.enums.HardwareType;
 import hr.tvz.versic.hardwareapp.model.DTO.HardwareDTO;
-import hr.tvz.versic.hardwareapp.model.POJO.Review;
+import hr.tvz.versic.hardwareapp.model.DTO.ReviewDTO;
 import hr.tvz.versic.hardwareapp.service.interfaces.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import hr.tvz.versic.hardwareapp.service.interfaces.HardwareService;
 import javax.validation.Valid;
 import java.util.List;
-
+import java.util.Optional;
 
 
 @RestController
@@ -20,28 +20,8 @@ import java.util.List;
 public class HardwareController {
 
     private static HardwareService hardwareService;
-    private static ReviewService reviewService;
-    public HardwareController(HardwareService hardwareService, ReviewService reviewService) {
+    public HardwareController(HardwareService hardwareService) {
         this.hardwareService = hardwareService;
-        this.reviewService = reviewService;
-    }
-
-    @GetMapping("/api/review/all")
-    public ResponseEntity<List<Review>> getAllReviews(){
-        List<Review> reviewList = reviewService.getAll();
-        if(reviewList.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(reviewService.getAll());
-    }
-
-    @GetMapping("/api/review/all/{id}")
-    public ResponseEntity<List<Review>> getReviewByHardwareId(@PathVariable Long id){
-        List<Review> reviewList = reviewService.getAllByHardwareId(id);
-        if(reviewList.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(reviewList);
     }
 
     @GetMapping
@@ -68,12 +48,12 @@ public class HardwareController {
     @GetMapping("/{code}")
     public ResponseEntity<HardwareDTO> returnByCode(@PathVariable final String code)
     {
-        HardwareDTO hardwareDTO = hardwareService.findByCode(code);
-        if (hardwareDTO != null){
-            return ResponseEntity.status(HttpStatus.OK).body(hardwareDTO);
+        Optional<HardwareDTO> hardwareDTO = hardwareService.findByCode(code);
+        if (hardwareDTO.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(hardwareDTO.get());
         }else
         {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hardwareDTO);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 

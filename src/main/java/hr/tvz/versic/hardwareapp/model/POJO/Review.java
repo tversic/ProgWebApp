@@ -4,6 +4,7 @@ import hr.tvz.versic.hardwareapp.enums.StarsGrade;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "review")
@@ -57,5 +58,18 @@ public class Review implements Serializable {
 
     public void setOcjena(String ocjena) {
         this.ocjena = ocjena;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
+        return Objects.equals(id, review.id) && Objects.equals(name, review.name) && Objects.equals(tekst, review.tekst) && Objects.equals(ocjena, review.ocjena) && Objects.equals(hardware, review.hardware);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, tekst, ocjena, hardware);
     }
 }
