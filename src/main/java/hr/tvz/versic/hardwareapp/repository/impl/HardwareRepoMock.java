@@ -12,10 +12,7 @@ import java.util.stream.Collectors;
 public class HardwareRepoMock implements HardwareRepository {
 
     private List<Hardware> hardwares = new ArrayList<>(Arrays.asList(
-            new Hardware(Long.parseLong("1"), "LenovoHDD", "0000", 300.00, "STORAGE", 5),
-            new Hardware(Long.parseLong("2"), "MX432DDR4", "0001", 80.00, "RAM", 4),
-            new Hardware(Long.parseLong("3"), "MX432DfasR4", "0002", 90.00, "CPU", 4),
-            new Hardware(Long.parseLong("4"), "MX432Dfds4", "0003", 100.00, "GPU", 2  )
+            new Hardware(Long.parseLong("1"), "LenovoHDD", "0000", 300.00,  HardwareType.valueOf("STORAGE"), 5)
     ));
 
     @Override

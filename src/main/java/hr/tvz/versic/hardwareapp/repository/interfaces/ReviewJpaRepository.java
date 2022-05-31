@@ -13,5 +13,7 @@ public interface ReviewJpaRepository extends JpaRepository<Review, Long> {
 
     Review findById(long id);
 
+    Review findByTekstContaining(String text);
+
     List<Review> findByHardwareCode(String code);
 }

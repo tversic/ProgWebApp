@@ -31,7 +31,17 @@ public class ReviewServiceImpl implements ReviewService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public ReviewDTO findByText(String text) {
+        return mapReviewToReviewDTO(reviewJpaRepository.findByTekstContaining(text));
+    }
+
     private ReviewDTO mapReviewToReviewDTO(Review review){
-        return new ReviewDTO(review.getName(), review.getTekst(), review.getOcjena());
+        if(review != null){
+            return new ReviewDTO(review.getName(), review.getTekst(), review.getGrade());
+        }else{
+            return null;
+        }
+
     }
 }

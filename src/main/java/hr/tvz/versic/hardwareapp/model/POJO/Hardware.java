@@ -25,7 +25,8 @@ public class Hardware implements Serializable {
     private Double price;
 
     @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private HardwareType type;
 
     @Column(name = "stock")
     private Integer stock;
@@ -35,18 +36,17 @@ public class Hardware implements Serializable {
             cascade = CascadeType.ALL)
     private List<Review> review;
 
-    private HardwareType hardwareType;
     public Hardware() {
     }
 
-    public Hardware(String name, String code, Double price, String hardwareType, Integer stock) {
+    public Hardware(String name, String code, Double price, HardwareType hardwareType, Integer stock) {
         this.name = name;
         this.code = code;
         this.price = price;
         this.type = hardwareType;
         this.stock = stock;
     }
-    public Hardware(Long id, String name, String code, Double price, String hardwareType, Integer stock) {
+    public Hardware(Long id, String name, String code, Double price, HardwareType hardwareType, Integer stock) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -79,11 +79,11 @@ public class Hardware implements Serializable {
     }
 
     public HardwareType getType() {
-        return hardwareType;
+        return type;
     }
 
     public void setType(String type) {
-        hardwareType = HardwareType.valueOf(type) ;
+        type = HardwareType.valueOf(type).name() ;
     }
 
     public void setStock(Integer stock) {

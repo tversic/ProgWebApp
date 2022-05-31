@@ -6,5 +6,6 @@ public enum HardwareType {
     MBO,
     RAM,
     STORAGE,
-    OTHER
+    OTHER;
+
 }

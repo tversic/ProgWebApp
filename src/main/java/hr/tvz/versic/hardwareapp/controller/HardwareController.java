@@ -7,6 +7,7 @@ import hr.tvz.versic.hardwareapp.model.DTO.ReviewDTO;
 import hr.tvz.versic.hardwareapp.service.interfaces.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import hr.tvz.versic.hardwareapp.service.interfaces.HardwareService;
 import javax.validation.Valid;
@@ -24,6 +25,19 @@ public class HardwareController {
         this.hardwareService = hardwareService;
     }
 
+    @Secured("ROLE_ADMIN")
+    @PostMapping
+    public ResponseEntity<HardwareDTO> save(@Valid @RequestBody final HardwareCommand command){
+        HardwareCommand command1 = command;
+        HardwareDTO hardwareDTO = hardwareService.save(command);
+        if(hardwareDTO != null){
+            return ResponseEntity.status(HttpStatus.OK).body(hardwareDTO);
+        }else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hardwareDTO);
+        }
+    }
+
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public List<HardwareDTO> getAllHardwares()
     {
@@ -57,16 +71,8 @@ public class HardwareController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<HardwareDTO> save(@Valid @RequestBody final HardwareCommand command){
-        HardwareDTO hardwareDTO = hardwareService.save(command);
-        if(hardwareDTO != null){
-            return ResponseEntity.status(HttpStatus.OK).body(hardwareDTO);
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hardwareDTO);
-        }
-    }
 
+    @Secured({"ROLE_ADMIN", "ROLE_DELETER"})
     @DeleteMapping("/{code}")
     public ResponseEntity<HardwareDTO> delete(@Valid @PathVariable String code){
         if(hardwareService.delete(code)){
@@ -76,6 +82,7 @@ public class HardwareController {
         }
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping("/{code}")
     public ResponseEntity<HardwareDTO> put(@Valid @RequestBody HardwareCommand hardwareCommand){
         HardwareDTO hardwareDTO = hardwareService.put(hardwareCommand);

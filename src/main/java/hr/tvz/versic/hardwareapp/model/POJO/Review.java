@@ -1,7 +1,5 @@
 package hr.tvz.versic.hardwareapp.model.POJO;
 
-import hr.tvz.versic.hardwareapp.enums.StarsGrade;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -22,7 +20,7 @@ public class Review implements Serializable {
     private String tekst;
 
     @Column(name = "ocjena")
-    private String ocjena;
+    private Integer grade;
 
     @ManyToOne
     @JoinColumn(name = "id_hardware")
@@ -52,12 +50,12 @@ public class Review implements Serializable {
         this.tekst = tekst;
     }
 
-    public String getOcjena() {
-        return ocjena;
+    public Integer getGrade() {
+        return grade;
     }
 
-    public void setOcjena(String ocjena) {
-        this.ocjena = ocjena;
+    public void setOcjena(Integer ocjena) {
+        this.grade = ocjena;
     }
 
     @Override
@@ -65,11 +63,11 @@ public class Review implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Review review = (Review) o;
-        return Objects.equals(id, review.id) && Objects.equals(name, review.name) && Objects.equals(tekst, review.tekst) && Objects.equals(ocjena, review.ocjena) && Objects.equals(hardware, review.hardware);
+        return Objects.equals(id, review.id) && Objects.equals(name, review.name) && Objects.equals(tekst, review.tekst) && Objects.equals(grade, review.grade) && Objects.equals(hardware, review.hardware);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, tekst, ocjena, hardware);
+        return Objects.hash(id, name, tekst, grade, hardware);
     }
 }

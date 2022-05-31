@@ -2,40 +2,40 @@ package hr.tvz.versic.hardwareapp.model.DTO;
 
 public class ReviewDTO {
 
-    private String name;
-    private String tekst;
-    private String ocjena;
+    private String title;
+    private String text;
+    private Integer rating;
 
     public ReviewDTO() {
     }
 
-    public ReviewDTO(String name, String tekst, String ocjena) {
-        this.name = name;
-        this.tekst = tekst;
-        this.ocjena = ocjena;
+    public ReviewDTO(String name, String tekst, Integer ocjena) {
+        this.title = name;
+        this.text = tekst;
+        this.rating = ocjena;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.title = name;
     }
 
-    public String getTekst() {
-        return tekst;
+    public String getText() {
+        return text;
     }
 
-    public void setTekst(String tekst) {
-        this.tekst = tekst;
+    public void setText(String tekst) {
+        this.text = tekst;
     }
 
-    public String getOcjena() {
-        return ocjena;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setOcjena(String ocjena) {
-        this.ocjena = ocjena;
+    public void setOcjena(Integer ocjena) {
+        this.rating = ocjena;
     }
 }

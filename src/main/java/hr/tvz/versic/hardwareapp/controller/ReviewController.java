@@ -6,10 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
-@RequestMapping("hardware")
+@RequestMapping("review")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ReviewController {
 
@@ -18,7 +21,7 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
-    @GetMapping("/api/review")
+    @GetMapping
     public ResponseEntity<List<ReviewDTO>> getAllReviews(){
         List<ReviewDTO> reviewList = reviewService.getAll();
         if(reviewList.isEmpty()){
@@ -27,12 +30,8 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.OK).body(reviewService.getAll());
     }
 
-    @GetMapping("/review/{code}")
-    public ResponseEntity<List<ReviewDTO>> getReviewByHardwareId(@PathVariable String code){
-        List<ReviewDTO> reviewList = reviewService.getAllByHardwareCode(code);
-        if(reviewList.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(reviewList);
+    @GetMapping(params = "hardwareCode")
+    public List<ReviewDTO> getReviewsByCode(@RequestParam String hardwareCode){
+        return reviewService.getAllByHardwareCode(hardwareCode);
     }
 }

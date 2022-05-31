@@ -1,13 +1,19 @@
 package hr.tvz.versic.hardwareapp.command;
 
 import hr.tvz.versic.hardwareapp.enums.HardwareType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class HardwareCommand {
+
 
     @NotEmpty(message = "name can't be left empty")
     private String name;
@@ -19,8 +25,8 @@ public class HardwareCommand {
     @PositiveOrZero(message = "price cant be negative")
     private Double price;
 
-    @NotNull
-    private HardwareType hardwareType;
+    @NotNull(message = "type musnt be left empty")
+    private HardwareType type;
 
     @NotNull(message = "stock can't be left empty")
     @PositiveOrZero(message = "stock cant be negative")
@@ -50,12 +56,12 @@ public class HardwareCommand {
         this.price = price;
     }
 
-    public HardwareType getHardwareType() {
-        return hardwareType;
+    public HardwareType getType() {
+        return type;
     }
 
     public void setHardwareType(HardwareType hardwareType) {
-        this.hardwareType = hardwareType;
+        this.type = hardwareType;
     }
 
     public Integer getStock() {

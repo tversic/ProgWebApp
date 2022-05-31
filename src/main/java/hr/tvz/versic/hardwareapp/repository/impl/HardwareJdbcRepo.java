@@ -90,6 +90,7 @@ public class HardwareJdbcRepo implements HardwareRepository {
 
     @Override
     public boolean delete(String code) {
+        jdbcTemplate.update("DELETE FROM review where id_hardware =  (select id from hardware where code = ?)", code);
         jdbcTemplate.update("DELETE FROM hardware where code = ?", code);
         return true;
     }
@@ -101,7 +102,7 @@ public class HardwareJdbcRepo implements HardwareRepository {
                     rs.getString("name"),
                     rs.getString("code"),
                     rs.getDouble("price"),
-                    rs.getString("type"),
+                   HardwareType.valueOf( rs.getString("type")),
                     rs.getInt("stock")
             );
             List<Review> review = reviewJpaRepository.findByHardwareCode(h1.getCode());
